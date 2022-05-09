@@ -51,7 +51,7 @@ jobs:
     # Your Heroku API Key
        api_key: $HEROKU_API_KEY
     # Your Heroku App Name
-       app_name: $APP_NAME
+       app_name: node-microservice-one
     # Dokerfile path
        dockerfile_path: '.'
    
