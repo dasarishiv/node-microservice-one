@@ -37,6 +37,8 @@ jobs:
     
   deploy:
     name: Deploy to Heroku
+    needs: [build]
+    if: ${{ always() && !cancelled() && needs.build.result == 'success' }}
     runs-on : ubuntu-latest
     steps:
     - name: Checkout
