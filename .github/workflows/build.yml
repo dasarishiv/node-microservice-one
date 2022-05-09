@@ -41,19 +41,16 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v2
-    - name: Heroku Docker Container Deploy
-      uses: lucassarcanjo/heroku-deploy@2.1.17
+    - name: Heroku  Deploy
+      uses: AkhileshNS/heroku-deploy@v3.12.12
       with:
        # Email Linked to your Heroku Account
-       email: $HEROKU_EMAIL
-      # Heroku Dyno Formation
-       formation: web
-    # Your Heroku API Key
-       api_key: $HEROKU_API_KEY
+       heroku_email: $HEROKU_EMAIL
+      # Your Heroku API Key
+       heroku_api_key: $HEROKU_API_KEY
     # Your Heroku App Name
-       app_name: node-microservice-one
-    # Dokerfile path
-       dockerfile_path: '.'
+       heroku_app_name: node-microservice-one
+   
    
       
       
