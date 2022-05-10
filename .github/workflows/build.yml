@@ -11,7 +11,7 @@ on:
     
 env:
   HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY}}
-  APP_NAME : ${{ 'node-microservice-one' }}
+  APP_NAME : ${{ 'node-microservice-three' }}
   HEROKU_EMAIL : ${{ 'dasarishiv@gmail.com' }}
 
 jobs:
