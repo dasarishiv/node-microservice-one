@@ -51,7 +51,7 @@ jobs:
       # Your Heroku API Key
        heroku_api_key: $HEROKU_API_KEY
     # Your Heroku App Name
-       heroku_app_name: node-microservice-one
+       heroku_app_name: $APP_NAME
    
    
       
