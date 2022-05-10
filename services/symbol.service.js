@@ -5,7 +5,7 @@ module.exports = {
         };
         return new Promise((resolve, reject) => {
 
-                const body={symbol:type,price:1245};
+                const body={symbol:type,price:12489};
                 
                     resolve(body);
                
