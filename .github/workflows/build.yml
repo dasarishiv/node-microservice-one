@@ -65,9 +65,10 @@ jobs:
         # Build a docker container and
         # push it to ECR so that it can
         # be deployed to ECS.
-        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
-        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-        echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
+        docker build -t tritech-containers-2022 . 
+        docker tag tritech-containers-2022:latest public.ecr.aws/r7m1c6f1/tritech-containers-2022:latest
+        docker push public.ecr.aws/r7m1c6f1/tritech-containers-2022:latest
+        
        
    
    
