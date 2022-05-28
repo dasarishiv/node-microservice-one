@@ -10,9 +10,9 @@ on:
     branches: [ main ]
     
 env:
-  HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY}}
-  APP_NAME : ${{ 'node-microservice-one' }}
-  HEROKU_EMAIL : ${{ 'venu.shastri@gmail.com' }}
+  AWS_ACCESS_KEY_ID : ${{ 'AKIAU6ETYP3P3M3GLCZM' }}
+  AWS_SECRET_ACCESS_KEY : ${{ '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' }}
+
 
 jobs:
   build:
@@ -36,22 +36,39 @@ jobs:
     - run: npm test
     
   deploy:
-    name: Deploy to Heroku
+    name: Deploy to AWS ECS
     needs: [build]
     if: ${{ always() && !cancelled() && needs.build.result == 'success' }}
     runs-on : ubuntu-latest
     steps:
     - name: Checkout
       uses: actions/checkout@v2
-    - name: Heroku  Deploy
-      uses: AkhileshNS/heroku-deploy@v3.12.12
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
       with:
-       # Email Linked to your Heroku Account
-       heroku_email: $HEROKU_EMAIL
-      # Your Heroku API Key
-       heroku_api_key: $HEROKU_API_KEY
-    # Your Heroku App Name
-       heroku_app_name: node-microservice-one
+       # Aws Acess Key Id
+       aws-access-key-id: $AWS_ACCESS_KEY_ID
+       # AWS Secret Access Key
+       aws-secret-access-key: $AWS_SECRET_ACCESS_KEY
+       # AWS Region Name
+       aws-region: us-east-1
+    - name: Login to Amazon ECR
+      id: login-ecr
+      uses: aws-actions/amazon-ecr-login@v1
+    - name: Build, tag, and push image to Amazon ECR
+      id: build-image
+      env:
+        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        ECR_REPOSITORY: tritech-containers-2022
+        IMAGE_TAG: ${{ github.sha }}
+      run: |
+        # Build a docker container and
+        # push it to ECR so that it can
+        # be deployed to ECS.
+        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+        echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
+       
    
    
       
