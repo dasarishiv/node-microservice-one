@@ -59,7 +59,7 @@ jobs:
       id: build-image
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-        ECR_REPOSITORY: tritech-containers-2022
+        ECR_REPOSITORY: tritech-containers
         IMAGE_TAG: ${{ github.sha }}
       run: |
         # Build a docker container and
