@@ -36,7 +36,7 @@ jobs:
     - run: npm test
     
   deploy:
-    name: Deploy to AWS ECS
+    name: Deploy to AWS EKS Using ECR
     needs: [build]
     if: ${{ always() && !cancelled() && needs.build.result == 'success' }}
     runs-on : ubuntu-latest
@@ -62,7 +62,7 @@ jobs:
         ECR_REPOSITORY: tritech-containers
         IMAGE_TAG: ${{ github.sha }}
       run: |
-        # Build a docker container and
+        # Build a docker Image and
         # push it to ECR so that it can
         # be deployed to ECS.
         docker build --file ./Dockerfile -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
